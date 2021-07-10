@@ -1,11 +1,86 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+using System.IO;
+using Assets;
+
+[Serializable]
+public class CreaeteandSaveData
+{
+    internal int ammoSaved;
+    internal int healthSaved;
+    internal int ammoClipSaved;
+
+}
+
+
 
 public class FPController : MonoBehaviour
 {
+
+    //Inventory to Save 
+    internal int ammo =  DataHolder.ammoHolder;
+    internal int health =  DataHolder.healthHolder;
+    internal int ammoClip =  DataHolder.ammoClipHolder;
+
+
+
+
+    //Inventory
+    int maxAmmo = 50;
+    int maxHealth = 100;
+    int ammoClipMax = 10;
+
+    
+        public void SaveGame()
+        {
+            //D:\A-Devs\UnityHub\Projects\A-GitHub1\InYourHead
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath
+        + "/SaveData/MySavedData.dat");
+            CreaeteandSaveData progress = new CreaeteandSaveData();
+            progress.ammoSaved = ammo;
+            progress.healthSaved = health;
+            progress.ammoClipSaved = ammoClip;
+            bf.Serialize(file, progress);
+            file.Close();
+            Debug.Log("Progress is saved");
+        }
+
+        public void LoadGameForPlay()
+        {
+
+                ammo = 50;
+                health = 100;
+                ammoClip = 10; 
+              
+        }
+
+    public void LoadGameForContinue()
+    {
+        if (File.Exists(Application.persistentDataPath
+    + "/SaveData/MySavedData.dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fileStream = File.Open(Application.persistentDataPath
+    + "/SaveData/MySavedData.dat", FileMode.Open);
+
+            CreaeteandSaveData progress = (CreaeteandSaveData)bf.Deserialize(fileStream);
+            fileStream.Close();
+            ammo = progress.ammoSaved;
+            health = progress.healthSaved;
+            ammoClip = progress.ammoClipSaved;
+            Debug.Log("Game data loaded");
+        }
+        else { Debug.Log("This saved game is not found"); }
+    }
+
+
     public GameObject cam;
     public GameObject canvas;
     public GameObject stevePrefab;
@@ -41,14 +116,6 @@ public class FPController : MonoBehaviour
 
     float x;
     float z;
-
-    //Inventory
-    int ammo = 50;
-    int maxAmmo = 50;
-    int health = 100;
-    int maxHealth = 100;
-    int ammoClip = 10;
-    int ammoClipMax = 10;
 
     bool playingWalking = false;
     bool previouslyGrounded = true;
@@ -107,7 +174,7 @@ public class FPController : MonoBehaviour
         cameraRot = cam.transform.localRotation;
         characterRot = this.transform.localRotation;
         GameStats.gameOver = false;
-        health = maxHealth;
+        
         healthbar.value = health;
 
         ammoReserves.text = ammo + "";
@@ -122,7 +189,7 @@ public class FPController : MonoBehaviour
             GameObject hitZombie = hitInfo.collider.gameObject;
             if (hitZombie.tag == "Zombie")
             {
-                if (Random.Range(0, 10) < 5)
+                if (UnityEngine.Random.Range(0, 10) < 5)
                 {
                     GameObject rdPrefab = hitZombie.GetComponent<ZombieController>().ragdoll;
                     GameObject newRD = Instantiate(rdPrefab, hitZombie.transform.position, hitZombie.transform.rotation);
@@ -141,11 +208,23 @@ public class FPController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(shotDirection.transform.position, shotDirection.forward * 200, Color.red);
+        
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            SaveGame();
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+           // LoadGameForContinue();
+            healthbar.value = health;
+            ammoClipAmount.text = ammoClip + "";
+            ammoReserves.text = ammo + "";
+        }
+            Debug.DrawRay(shotDirection.transform.position, shotDirection.forward * 200, Color.red);
         if (Input.GetKeyDown(KeyCode.F))
             anim.SetBool("arm", !anim.GetBool("arm"));
 
-        Debug.Log("Can Shoot: " + GameStats.canShoot);
+        
 
         if (Input.GetMouseButtonDown(0) && !anim.GetBool("fire") && anim.GetBool("arm") && GameStats.canShoot)
         {
@@ -216,7 +295,7 @@ public class FPController : MonoBehaviour
     void PlayFootStepAudio()
     {
         AudioSource audioSource = new AudioSource();
-        int n = Random.Range(1, footsteps.Length);
+        int n = UnityEngine.Random.Range(1, footsteps.Length);
 
         audioSource = footsteps[n];
         audioSource.Play();
@@ -226,7 +305,7 @@ public class FPController : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void FixedUpdate( )
     {
         float yRot = Input.GetAxis("Mouse X") * Ysensitivity;
         float xRot = Input.GetAxis("Mouse Y") * Xsensitivity;
