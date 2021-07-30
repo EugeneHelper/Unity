@@ -15,7 +15,7 @@ public class ChangeScene : MonoBehaviour
     }
     public void PlayGame()
     {
-        DataHolder.LoadGameForPlay();
+       // DataHolder.LoadGameForPlay();
         SceneManager.LoadScene("GameLevel");
       
     }

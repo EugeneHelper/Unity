@@ -15,6 +15,9 @@ public class CreaeteandSaveData
     internal int ammoSaved;
     internal int healthSaved;
     internal int ammoClipSaved;
+    internal float x,y,z;
+    
+
 
 }
 
@@ -22,11 +25,20 @@ public class CreaeteandSaveData
 
 public class FPController : MonoBehaviour
 {
-
+    internal Transform CurrentPlayerPosition;
+    internal int ammo ;
+    internal int health;
+    internal int ammoClip;
     //Inventory to Save 
-    internal int ammo =  DataHolder.ammoHolder;
-    internal int health =  DataHolder.healthHolder;
-    internal int ammoClip =  DataHolder.ammoClipHolder;
+    public void SetData()
+    {  
+        ammo = DataHolder.ammoHolder;
+        health = DataHolder.healthHolder;
+        ammoClip = DataHolder.ammoClipHolder;
+        this.gameObject.transform.position = new Vector3(DataHolder.x, DataHolder.y, DataHolder.z);
+    }
+
+ 
 
 
 
@@ -39,15 +51,20 @@ public class FPController : MonoBehaviour
     
         public void SaveGame()
         {
+            CurrentPlayerPosition = this.gameObject.transform;
             //D:\A-Devs\UnityHub\Projects\A-GitHub1\InYourHead
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath
         + "/SaveData/MySavedData.dat");
             CreaeteandSaveData progress = new CreaeteandSaveData();
+        
             progress.ammoSaved = ammo;
             progress.healthSaved = health;
             progress.ammoClipSaved = ammoClip;
-            bf.Serialize(file, progress);
+        progress.x = CurrentPlayerPosition.position.x;
+        progress.y = CurrentPlayerPosition.position.y;
+        progress.z = CurrentPlayerPosition.position.z;
+        bf.Serialize(file, progress);
             file.Close();
             Debug.Log("Progress is saved");
         }
@@ -174,7 +191,7 @@ public class FPController : MonoBehaviour
         cameraRot = cam.transform.localRotation;
         characterRot = this.transform.localRotation;
         GameStats.gameOver = false;
-        
+        SetData();
         healthbar.value = health;
 
         ammoReserves.text = ammo + "";
