@@ -9,7 +9,7 @@ public class MakeLine : MonoBehaviour {
 	public Transform SpawnPoint;
 	public List<GameObject> Childern = new List<GameObject>();
 	GameObject temp;
-	int countOfBonus=2;
+	//int countOfBonus=2;
 
 	
 	private void Start()
@@ -20,9 +20,24 @@ public class MakeLine : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-		if(!gameStates.gameOver) StartCoroutine("toCreateLine");
-	}
-	IEnumerator toCreateLine()
+        /*f (!gameStates.gameOver ) StartCoroutine("toCreateLine");*/
+
+        //      if (true) { }
+
+        if (gameStates.activeMenu)
+        {
+            
+            
+            if (gameStates.gameOver)
+            {
+                //reset the score - сбросить
+            }
+        }
+        else StartCoroutine("toCreateLine");
+
+    }
+
+        IEnumerator toCreateLine()
 	{
 		yield return new WaitForSeconds(0.6f);
 		LineCreating();

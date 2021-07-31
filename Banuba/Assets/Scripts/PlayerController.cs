@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     
-    bool bonus = false;
-    bool bonusCrash=false;
-    bool bonusScale=false;
-    bool bonusCrashWork = false;
+    //bool bonus = false;
+    //bool bonusCrash=false;
+    //bool bonusScale=false;
+    //bool bonusCrashWork = false;
 
     void Update()
     {
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("Game Over");
-            gameStates.gameOver = true;
+            GameObject.Find("SceneManager").GetComponent<ChangeSceneIt>().GameOver();
         }
     }
    

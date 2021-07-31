@@ -8,7 +8,7 @@ public class MoveLine : MonoBehaviour
   
     void FixedUpdate()
     {
-        if (!gameStates.gameOver) { transform.Translate(speed * Vector3.down * Time.deltaTime); }
+        if (!gameStates.activeMenu) { transform.Translate(speed * Vector3.down * Time.deltaTime); }
     }
 
     
