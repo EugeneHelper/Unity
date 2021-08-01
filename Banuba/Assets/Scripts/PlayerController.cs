@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         //if (Input.touchCount > 0) SetPosition();
         if (Input.GetMouseButtonDown(0)) SetPosition();
+
     }
 
     void SetPosition()
@@ -25,11 +26,37 @@ public class PlayerController : MonoBehaviour
 
         Vector2 mouse = Input.mousePosition;
         Vector2 touchpos2 = Camera.main.ScreenToWorldPoint(mouse);
-        transform.position = new Vector3(touchpos2.x, transform.position.y);
+       
+        //RaycastHit hit;
+
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(ray, Vector2.zero);
+
+       
+
+        if (/*raycasts== "TouchPanel" && */raycasts.Length > 0)
+        {
+            foreach (RaycastHit2D hit in raycasts)
+            {
+               if(hit.collider.tag == "TouchPanel")
+                {
+                    transform.position = new Vector2(touchpos2.x, transform.position.y);
+                }
+            }
+                Debug.Log("RayCast2D lenght= "+ raycasts.Length);
+
+            
+        }
+        else Debug.Log("RayCast2D otstoi");
+
+        //collider.tag== "TouchPanel"
+        //Vector2 mouse = Input.mousePosition;
+        //Vector2 touchpos2 = Camera.main.ScreenToWorldPoint(mouse);
+        //transform.position = new Vector3(touchpos2.x, transform.position.y);
 
 
-     }
-    
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -50,7 +77,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("Game Over");
-            GameObject.Find("SceneManager").GetComponent<ChangeSceneIt>().GameOver();
+            GameObject.Find("SceneManager").GetComponent<ChangeScene>().GameOver();
         }
     }
    

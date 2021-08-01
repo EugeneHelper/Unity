@@ -28,7 +28,7 @@ public class ObjectPooler : MonoBehaviour
 
 		SharedInstance = this;
 
-		//quadrat = new List<List<List<GameObject>>>(); //это трёхмерный массив 
+		
 		pooledObjectsList = new List<List<GameObject>>();//это как двухмерный массив объектов
 		pooledObjects = new List<GameObject>(); // отвечает за кол-во обьектов LINE_1 в пуле
 		foreach (ObjectPoolItem item in itemsToPool)//itemesToPool лист в инспекторе сформированный через Drag & Drop

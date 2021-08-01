@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameStates:MonoBehaviour
+public static class gameStates
 {
 
-    public static bool gameOver = false;
-    public static bool activeMenu = false;
+    public static bool gameOver = true;
+    public static bool activeMenu = true;
     public static bool StartGame = false;
-
-
+    public static int Score = 0;
 }
 

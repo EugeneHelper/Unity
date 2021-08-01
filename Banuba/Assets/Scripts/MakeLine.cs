@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MakeLine : MonoBehaviour {
 	static int iForFalse=3;
 	public int BallIndex = 0;
 	private ObjectPooler OP;
 	public Transform SpawnPoint;
-	public List<GameObject> Childern = new List<GameObject>();
-	GameObject temp;
+	public Text textScore;
+	
+
 	//int countOfBonus=2;
 
 	
@@ -33,7 +35,7 @@ public class MakeLine : MonoBehaviour {
                 //reset the score - сбросить
             }
         }
-        else StartCoroutine("toCreateLine");
+        else  StartCoroutine("toCreateLine");
 
     }
 
@@ -41,6 +43,8 @@ public class MakeLine : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(0.6f);
 		LineCreating();
+		gameStates.Score++;
+		textScore.text =gameStates.Score.ToString();
 		StopCoroutine("toCreateLine");
 	}
 

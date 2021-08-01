@@ -11,6 +11,16 @@ public class DisableAfterTime : MonoBehaviour {
 	private IEnumerator Disabler()
 	{
 		yield return new WaitForSeconds(lifeTime);
+		DisableLine();
+	}
+
+    private void OnDisable()
+    {
+		StopAllCoroutines();
+    }
+	
+	public void DisableLine()
+    {
 		gameObject.SetActive(false);
 	}
 
