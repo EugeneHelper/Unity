@@ -66,7 +66,7 @@ public class MakeLine : MonoBehaviour {
 		}
 	
 		//здесь я выборочно буду тушить
-		while (a < 6)
+		while (a < Line.transform.childCount)
 		{
 			//if (aboveFlag) firstFlag = true;
 
