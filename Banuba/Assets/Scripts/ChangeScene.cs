@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class ChangeScene : MonoBehaviour
 {
     public GameObject MenuPanel;
@@ -11,7 +12,12 @@ public class ChangeScene : MonoBehaviour
     public ObjectPooler objectPooler;
 
     public PlayerController playerController;
+    public Text textRecord;
 
+    private void Start()
+    {
+       textRecord.text= PlayerPrefs.GetInt("Record").ToString();
+    }
     public void Continue()
     {
         Debug.Log("Continue Game");
@@ -80,16 +86,14 @@ public class ChangeScene : MonoBehaviour
         LINE_1.enabled = false;
         gameStates.gameOver = true;
         MenuPanel.transform.Find("GameOverText").gameObject.SetActive(true);
+        if (gameStates.Score > gameStates.bestScore)
+        {
+            PlayerPrefs.SetInt("Record", gameStates.Score);
+            textRecord.text = gameStates.Score.ToString();
 
+        }
     }
 
-    void noMovePlayer()
-    {
-        playerController.enabled = false;
-    }
-        void MovePlayer()
-    {
-        playerController.enabled = true;
-    }
+ 
 
 }

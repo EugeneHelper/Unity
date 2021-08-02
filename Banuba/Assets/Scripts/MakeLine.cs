@@ -22,20 +22,12 @@ public class MakeLine : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-        /*f (!gameStates.gameOver ) StartCoroutine("toCreateLine");*/
 
-        //      if (true) { }
-
-        if (gameStates.activeMenu)
+        if (!gameStates.activeMenu)
         {
-            
-            
-            if (gameStates.gameOver)
-            {
-                //reset the score - сбросить
-            }
-        }
-        else  StartCoroutine("toCreateLine");
+			StartCoroutine("toCreateLine");
+		}
+       
 
     }
 

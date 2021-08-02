@@ -7,7 +7,7 @@ public static class gameStates
 
     public static bool gameOver = true;
     public static bool activeMenu = true;
-    public static bool StartGame = false;
     public static int Score = 0;
+    public static int bestScore = 0;
 }
 
