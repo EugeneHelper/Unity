@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class MakeLine : MonoBehaviour {
 	static int iForFalse=3;
-	public int BallIndex = 0;
+	public int LineIndex = 0;
 	private ObjectPooler OP;
 	public Transform SpawnPoint;
 	public Text textScore;
-	
 
+	public GameObject CrashBonus;
+	public GameObject ScaleBonus;
 	//int countOfBonus=2;
 
 	
@@ -49,19 +50,19 @@ public class MakeLine : MonoBehaviour {
 	{
 		Random.InitState((int)System.DateTime.Now.Ticks);
 
-		GameObject Ball = OP.GetPooledObject(BallIndex);
+		GameObject Line = OP.GetPooledObject(LineIndex);
 		//GameObject Bonus = OP.GetPooledObject(Random.Range(1,countOfBonus));
 		int a = 0;
 		
 
 
-		Ball.transform.position = SpawnPoint.transform.position;
+		Line.transform.position = SpawnPoint.transform.position;
 
 		//здесь я всех включаю
-		Ball.SetActive(true);
-		for (int i = 0; i < Ball.transform.childCount; i++)
+		Line.SetActive(true);
+		for (int i = 0; i < Line.transform.childCount; i++)
 		{
-			Ball.transform.GetChild(i).gameObject.SetActive(true);
+			Line.transform.GetChild(i).gameObject.SetActive(true);
 		}
 	
 		//здесь я выборочно буду тушить
@@ -71,8 +72,18 @@ public class MakeLine : MonoBehaviour {
 
 			int b = iForFals(ref iForFalse);
 			
-			Ball.transform.GetChild(b).gameObject.SetActive(false); 
-			//Bonus.transform.position= Ball.transform.GetChild(b).;
+			Line.transform.GetChild(b).gameObject.SetActive(false);
+
+			CrashBonus.transform.position = Line.transform.GetChild(b).position;
+
+			//if (Random.Range(0f, 1f) < 0.3f)
+			//{
+				
+			//	CrashBonus.transform.position=Line.transform.GetChild(b).position;
+
+			//}
+
+			//Bonus.transform.position= Line.transform.GetChild(b).;
 
 			if (aboveFlag) { break; }
 			a++;

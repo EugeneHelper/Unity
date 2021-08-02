@@ -86,12 +86,19 @@ public class ChangeScene : MonoBehaviour
         LINE_1.enabled = false;
         gameStates.gameOver = true;
         MenuPanel.transform.Find("GameOverText").gameObject.SetActive(true);
+
         if (gameStates.Score > gameStates.bestScore)
         {
-            PlayerPrefs.SetInt("Record", gameStates.Score);
-            textRecord.text = gameStates.Score.ToString();
-
+            gameStates.bestScore = gameStates.Score;
+            Invoke("showScore", 0.8f);
+            
         }
+    }
+
+    void showScore()
+    {
+        PlayerPrefs.SetInt("Record", gameStates.bestScore);
+        textRecord.text = gameStates.Score.ToString();
     }
 
  
