@@ -13,15 +13,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (Input.touchCount > 0) SetPosition();
+        if (Input.touchCount > 0) SetPosition();
         if (Input.GetMouseButtonDown(0)) SetPosition();
 
     }
 
     void SetPosition()
     {
-        //Touch touch = Input.GetTouch(0);
-        //Vector2 touchpos1 = Camera.main.ScreenToWorldPoint(new Vector2(touch.position.x, transform.position.y));
+        Touch touch = Input.GetTouch(0);
+        Vector2 touchpos1 = Camera.main.ScreenToWorldPoint(new Vector2(touch.position.x, transform.position.y));
         //transform.position = touchpos1;
 
         Vector2 mouse = Input.mousePosition;
@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
             {
                if(hit.collider.tag == "TouchPanel")
                 {
+                    transform.position = new Vector2(touchpos1.x, transform.position.y);
                     transform.position = new Vector2(touchpos2.x, transform.position.y);
+                    
                 }
             }
                 Debug.Log("RayCast2D lenght= "+ raycasts.Length);
@@ -68,7 +70,8 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("bonusScale"))
         {
-            gameObject.transform.localScale = new Vector2(transform.localScale.x*0.9f, transform.localScale.x * 0.9f);
+            gameObject.transform.localScale = new Vector2(transform.localScale.x * 0.9f, transform.localScale.x * 0.9f);
+            collision.gameObject.SetActive(false);
         }
         
         //if (bonusCrash) { return; }
