@@ -13,54 +13,66 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0) SetPosition();
-        if (Input.GetMouseButtonDown(0)) SetPosition();
+       
+        if (Input.GetMouseButtonDown(0)) SetPositionMouse();
+        if (Input.touchCount > 0) SetPositionTouch();
 
     }
 
-    void SetPosition()
+    void SetPositionMouse()
+    {
+      
+        Vector2 mouse = Input.mousePosition;
+        Vector2 touchpos2 = Camera.main.ScreenToWorldPoint(mouse);
+       
+     
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(ray, Vector2.zero);
+
+
+
+        if (raycasts.Length > 0)
+        {
+            foreach (RaycastHit2D hit in raycasts)
+            {
+                if (hit.collider.tag == "TouchPanel")
+                {
+                    transform.position = new Vector2(touchpos2.x, transform.position.y);
+
+                }
+            }
+            
+        }
+       
+
+        
+}
+    void SetPositionTouch()
     {
         Touch touch = Input.GetTouch(0);
         Vector2 touchpos1 = Camera.main.ScreenToWorldPoint(new Vector2(touch.position.x, transform.position.y));
         //transform.position = touchpos1;
 
-        Vector2 mouse = Input.mousePosition;
-        Vector2 touchpos2 = Camera.main.ScreenToWorldPoint(mouse);
-       
-        //RaycastHit hit;
 
         Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D[] raycasts = Physics2D.RaycastAll(ray, Vector2.zero);
 
-       
-
-        if (/*raycasts== "TouchPanel" && */raycasts.Length > 0)
+        if (raycasts.Length > 0)
         {
             foreach (RaycastHit2D hit in raycasts)
             {
-               if(hit.collider.tag == "TouchPanel")
+                if (hit.collider.tag == "TouchPanel")
                 {
                     transform.position = new Vector2(touchpos1.x, transform.position.y);
-                    transform.position = new Vector2(touchpos2.x, transform.position.y);
-                    
+
                 }
             }
-                Debug.Log("RayCast2D lenght= "+ raycasts.Length);
 
-            
         }
-        else Debug.Log("RayCast2D otstoi");
-
-        //collider.tag== "TouchPanel"
-        //Vector2 mouse = Input.mousePosition;
-        //Vector2 touchpos2 = Camera.main.ScreenToWorldPoint(mouse);
-        //transform.position = new Vector3(touchpos2.x, transform.position.y);
-
-
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("bonusCrash"))
         {
