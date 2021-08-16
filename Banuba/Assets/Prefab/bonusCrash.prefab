@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5048573722024583721}
   - component: {fileID: 5048573722024583720}
   - component: {fileID: 5048573722024583727}
-  - component: {fileID: 5048573722024583726}
   - component: {fileID: 5048573722024583724}
+  - component: {fileID: 6220994451032100525}
   m_Layer: 0
   m_Name: bonusCrash
   m_TagString: bonusCrash
@@ -101,19 +101,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5048573722024583726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5048573722024583723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6b0f64998f593c4aad1c96171a83e0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
 --- !u!114 &5048573722024583724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +114,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 6.5
+--- !u!114 &6220994451032100525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048573722024583723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc6d597856e46945836d8a685d1c18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
