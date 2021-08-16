@@ -29,6 +29,11 @@ public class BrakeKnife : MonoBehaviour
             }
             collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
+
+        if (collision.gameObject.tag == "tehnologyKnife")
+        {
+
+        }
     }
     public void levelfailui()
     {

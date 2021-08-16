@@ -9,7 +9,7 @@ public class PlayerInputManager : MonoBehaviour {
     public float speed;
     public GameObject knfe, facturedknife;
 
-    public Animator animator1;
+    public Animator animator1,animator2;
 
     //public Transform knife;
 
@@ -36,8 +36,9 @@ public class PlayerInputManager : MonoBehaviour {
 
       if (Input.GetMouseButtonDown(0))
         { 
-           // GetComponent<Animator>().enabled = true;
+            //GetComponent<Animator>().enabled = true;
            animator1.enabled = true;
+           animator2.enabled = true;
            // GetComponent<Animator>().SetBool();
         }
 
@@ -45,9 +46,11 @@ public class PlayerInputManager : MonoBehaviour {
 		{
 			//GetComponent<Animator>().enabled = false;
 			animator1.enabled = false;
-            
-			transform.rotation = Quaternion.Euler(0, 0, -45f);//Quaternion.Slerp(knife.rotation, Quaternion.Euler(0, 0, -45f), speed * Time.deltaTime);
-		}
+			animator2.enabled = false;
+
+            knfe.transform.rotation = Quaternion.Euler(0, 0, -45f);
+            //Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, -45f), speed * Time.deltaTime);
+        }
 	}
   
 

@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
 
         if (other.gameObject.tag == "floor")
         {
-             RandomBG.instance.PlayOnce();
+            if(true) RandomBG.instance.PlayOnce();
         }
 
         if (other.gameObject.tag == "Metal")
@@ -75,13 +75,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //public void OnTriggerEnter(Collider collision)
-    //{
-    //    if (collision.gameObject.tag == "floor")
-    //    {
-    //        Debug.Log("tap call is working");
-    //        RandomBG.instance.PlayOnce();/// ПОЧЕМУ НЕ ВЫЗЫВАЕТСЯ???
-    //    }
-    //}
+
 }
 
